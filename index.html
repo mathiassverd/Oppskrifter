@@ -530,9 +530,13 @@
     closeDropdowns();
 
     if (backToTopButton) {
-      if (window.scrollY > 260) {
-        backToTopButton.classList.add('show');
-      } else {
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+
+      // Remove #anchor from URL
+      history.replaceState(null, null, window.location.pathname);
+    });
+  } else {
         backToTopButton.classList.remove('show');
       }
     }
