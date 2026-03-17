@@ -236,13 +236,16 @@
       position: fixed;
       right: 16px;
       bottom: 20px;
+      width: 48px;
+      height: 48px;
       background: #222;
       color: white;
       border: none;
-      border-radius: 999px;
-      padding: 12px 16px;
-      font: inherit;
-      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
       box-shadow: 0 8px 20px rgba(0,0,0,0.18);
       cursor: pointer;
       opacity: 0;
@@ -461,7 +464,7 @@
   </footer>
 
   <button class="back-to-top" id="back-to-top" aria-label="Til toppen">
-    Til toppen ↑
+    ↑
   </button>
 
   <script>
@@ -470,6 +473,9 @@
     const menu = document.querySelector(menuId);
 
     if (!section || !menu) return;
+
+    const oldLinks = menu.querySelectorAll('a:not(:first-child)');
+    oldLinks.forEach((link) => link.remove());
 
     const recipes = section.querySelectorAll('.recipe[id]');
 
@@ -526,28 +532,28 @@
     closeDropdowns();
   });
 
-  window.addEventListener('scroll', () => {
+  function handleScrollUi() {
     closeDropdowns();
 
-    if (backToTopButton) {
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'auto' });
+    if (!backToTopButton) return;
 
-      // Remove #anchor from URL
-      history.replaceState(null, null, window.location.pathname);
-    });
-  } else {
-        backToTopButton.classList.remove('show');
-      }
+    if (window.scrollY > 260) {
+      backToTopButton.classList.add('show');
+    } else {
+      backToTopButton.classList.remove('show');
     }
-  }, { passive: true });
+  }
 
+  window.addEventListener('scroll', handleScrollUi, { passive: true });
   window.addEventListener('touchmove', closeDropdowns, { passive: true });
   window.addEventListener('wheel', closeDropdowns, { passive: true });
 
   if (backToTopButton) {
     backToTopButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      history.replaceState(null, '', window.location.pathname);
+      closeDropdowns();
+      backToTopButton.classList.remove('show');
     });
   }
 
