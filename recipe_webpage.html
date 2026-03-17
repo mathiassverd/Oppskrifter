@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mine oppskrifter😋</title>
+
+  <!-- iPhone App-like settings -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Oppskrifter">
+
+  <!-- App Icon -->
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1490645935967-10de6ba17061');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      color: #333;
+      font-weight: bold;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    .dropdown-toggle:hover {
+      background: #f5f5f5;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      padding: 8px 0;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 14px;
+      margin: 0;
+      text-align: left;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f5f5;
+    }
+
+    .dropdown.open .dropdown-menu {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 10px 12px;
+      }
+
+      .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .dropdown {
+        width: 100%;
+      }
+
+      .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+        padding: 14px 16px;
+        background: #f8f8f8;
+        border: 1px solid #ddd;
+      }
+
+      .dropdown-menu {
+        position: static;
+        min-width: 100%;
+        margin-top: 6px;
+        box-shadow: none;
+      }
+
+      .container {
+        padding: 20px 14px;
+      }
+
+      header {
+        padding: 60px 16px;
+      }
+
+      .recipe-header {
+        height: 110px;
+      }
+
+      .recipe-content {
+        padding: 14px;
+      }
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 6px;
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .recipe {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      overflow: hidden;
+    }
+
+    .recipe-header {
+      position: relative;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .recipe-header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .recipe-header h3 {
+      position: relative;
+      margin: 0;
+      z-index: 1;
+    }
+
+    .recipe-content {
+      padding: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mine oppskrifter😋</h1>
+    <p>Enkel samling av noen fabelaktige måltider</p>
+  </header>
+
+  <nav>
+    <div class="nav-menu">
+      <div class="dropdown">
+        <button class="dropdown-toggle">Middag</button>
+        <div class="dropdown-menu">
+          <a href="#dinner">Alle middager</a>
+          <a href="#marry-me-chicken">Marry me chicken</a>
+          <a href="#kremet-pasta">Kremet pasta med kylling</a>
+          <a href="#laks-gronnsaker">Laks med ovnsbakte grønnsaker</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle">Lunsj</button>
+        <div class="dropdown-menu">
+          <a href="#lunch">Alle lunsjer</a>
+          <a href="#lunch-recipe-1">Navn på oppskrift</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-toggle">Baking</button>
+        <div class="dropdown-menu">
+          <a href="#baking">Alle bakeoppskrifter</a>
+          <a href="#baking-recipe-1">Kanelboller med sjokoladebiter</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- DINNER -->
+    <section id="dinner">
+      <h2>Middag</h2>
+
+      <div class="recipes">
+
+        <div class="recipe" id="marry-me-chicken">
+          <div class="recipe-header" style="background: url('https://images.unsplash.com/photo-1604908176997-431e7a4b28e1'); background-size: cover; background-position: center;">
+            <h3>Marry me chicken</h3>
+          </div>
+          <div class="recipe-content">
+          <p><strong>Ingredienser:</strong></p>
+          <ul>
+            <li>Ingredient</li>
+            <li>Ingredient</li>
+          </ul>
+
+          <p><strong>Steg:</strong></p>
+          <ol>
+            <li>Step</li>
+            <li>Step</li>
+          </ol>
+
+          <!-- YouTube Video -->
+          <div style="margin-top: 15px; aspect-ratio: 9/16;">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              title="YouTube video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          </div>
+        </div>
+        </div>
+
+              <div class="recipe" id="kremet-pasta">
+          <div class="recipe-header" style="background: url('https://images.unsplash.com/photo-1525755662778-989d0524087e'); background-size: cover; background-position: center;">
+            <h3>Kremet pasta med kylling</h3>
+          </div>
+          <div class="recipe-content">
+          <p><strong>Ingredienser:</strong></p>
+          <ul>
+            <li>Kyllingfilet</li>
+            <li>Pasta</li>
+            <li>Fløte</li>
+            <li>Hvitløk</li>
+            <li>Parmesan</li>
+          </ul>
+
+          <p><strong>Steg:</strong></p>
+          <ol>
+            <li>Stek kyllingen til den er gjennomstekt.</li>
+            <li>Kok pasta etter anvisning på pakken.</li>
+            <li>Lag saus med hvitløk, fløte og parmesan.</li>
+            <li>Bland sammen og server.</li>
+          </ol>
+          </div>
+        </div>
+
+        <div class="recipe" id="laks-gronnsaker">
+          <div class="recipe-header" style="background: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288'); background-size: cover; background-position: center;">
+            <h3>Laks med ovnsbakte grønnsaker</h3>
+          </div>
+          <div class="recipe-content">
+          <p><strong>Ingredienser:</strong></p>
+          <ul>
+            <li>Laksefilet</li>
+            <li>Poteter</li>
+            <li>Gulrøtter</li>
+            <li>Brokkoli</li>
+            <li>Olivenolje</li>
+          </ul>
+
+          <p><strong>Steg:</strong></p>
+          <ol>
+            <li>Kutt grønnsakene og legg dem på et stekebrett.</li>
+            <li>Ha over olje, salt og pepper.</li>
+            <li>Legg laksen ved siden av grønnsakene.</li>
+            <li>Stek i ovnen til alt er mørt og ferdig.</li>
+          </ol>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- LUNCH -->
+    <section id="lunch">
+      <h2>Lunsj</h2>
+
+      <div class="recipes">
+
+        <div class="recipe" id="lunch-recipe-1">
+          <h3>Navn på oppskrift</h3>
+          <p><strong>Ingredienter:</strong></p>
+          <ul>
+            <li>Ingredient</li>
+            <li>Ingredient</li>
+          </ul>
+
+          <p><strong>Steg:</strong></p>
+          <ol>
+            <li>Step</li>
+            <li>Step</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- BAKING -->
+    <section id="baking">
+      <h2>Baking</h2>
+
+      <div class="recipes">
+
+        <div class="recipe" id="baking-recipe-1">
+          <h3>Kanelboller med sjokoladebiter</h3>
+          <p><strong>Ingredienter:</strong></p>
+          <ul>
+            <li>Ingredient</li>
+            <li>Ingredient</li>
+          </ul>
+
+          <p><strong>Steps:</strong></p>
+          <ol>
+            <li>Step</li>
+            <li>Step</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Syyyykt god samling av mat🥳
+  </footer>
+
+  <script>
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+    dropdownToggles.forEach((button) => {
+      button.addEventListener('click', () => {
+        const dropdown = button.parentElement;
+        const isOpen = dropdown.classList.contains('open');
+
+        document.querySelectorAll('.dropdown').forEach((item) => {
+          item.classList.remove('open');
+        });
+
+        if (!isOpen) {
+          dropdown.classList.add('open');
+        }
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach((item) => {
+          item.classList.remove('open');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
