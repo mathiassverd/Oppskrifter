@@ -216,7 +216,7 @@
 <body>
 
   <header>
-    <h1>Mine oppskrifter😋</h1>
+    <h1>Mattis sin samling av oppskrifter😋</h1>
     <p>Enkel samling av noen fabelaktige måltider</p>
   </header>
 
@@ -224,27 +224,22 @@
     <div class="nav-menu">
       <div class="dropdown">
         <button class="dropdown-toggle">Middag</button>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" id="dinner-menu">
           <a href="#dinner">Alle middager</a>
-          <a href="#marry-me-chicken">Marry me chicken</a>
-          <a href="#kremet-pasta">Kremet pasta med kylling</a>
-          <a href="#laks-gronnsaker">Laks med ovnsbakte grønnsaker</a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="dropdown-toggle">Lunsj</button>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" id="lunch-menu">
           <a href="#lunch">Alle lunsjer</a>
-          <a href="#lunch-recipe-1">Navn på oppskrift</a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="dropdown-toggle">Baking</button>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" id="baking-menu">
           <a href="#baking">Alle bakeoppskrifter</a>
-          <a href="#baking-recipe-1">Kanelboller med sjokoladebiter</a>
         </div>
       </div>
     </div>
@@ -289,11 +284,10 @@
           </div>
           </div>
         </div>
-        </div>
 
-              <div class="recipe" id="kremet-pasta">
+        <div class="recipe" id="gresk-kyllingmiddag">
           <div class="recipe-header" style="background: url('https://images.unsplash.com/photo-1525755662778-989d0524087e'); background-size: cover; background-position: center;">
-            <h3>Kremet pasta med kylling</h3>
+            <h3>Gresk kyllingmiddag</h3>
           </div>
           <div class="recipe-content">
           <p><strong>Ingredienser:</strong></p>
@@ -315,9 +309,9 @@
           </div>
         </div>
 
-        <div class="recipe" id="laks-gronnsaker">
+        <div class="recipe" id="marry-me-risotto">
           <div class="recipe-header" style="background: url('https://images.unsplash.com/photo-1467003909585-2f8a72700288'); background-size: cover; background-position: center;">
-            <h3>Laks med ovnsbakte grønnsaker</h3>
+            <h3>Marry me risotto</h3>
           </div>
           <div class="recipe-content">
           <p><strong>Ingredienser:</strong></p>
@@ -399,14 +393,40 @@
   </footer>
 
   <script>
+    function populateMenu(sectionId, menuId) {
+      const section = document.querySelector(sectionId);
+      const menu = document.querySelector(menuId);
+
+      if (!section || !menu) return;
+
+      const recipes = section.querySelectorAll('.recipe[id]');
+
+      recipes.forEach((recipe) => {
+        const title = recipe.querySelector('h3');
+        if (!title) return;
+
+        const link = document.createElement('a');
+        link.href = `#${recipe.id}`;
+        link.textContent = title.textContent.trim();
+        menu.appendChild(link);
+      });
+    }
+
+    populateMenu('#dinner', '#dinner-menu');
+    populateMenu('#lunch', '#lunch-menu');
+    populateMenu('#baking', '#baking-menu');
+
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const dropdowns = document.querySelectorAll('.dropdown');
 
     dropdownToggles.forEach((button) => {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+
         const dropdown = button.parentElement;
         const isOpen = dropdown.classList.contains('open');
 
-        document.querySelectorAll('.dropdown').forEach((item) => {
+        dropdowns.forEach((item) => {
           item.classList.remove('open');
         });
 
@@ -416,23 +436,27 @@
       });
     });
 
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown').forEach((item) => {
-          item.classList.remove('open');
-        });
-      }
+    document.querySelectorAll('.dropdown-menu').forEach((menu) => {
+      menu.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
     });
 
-    // Close dropdown when clicking a menu link
-    document.querySelectorAll('.dropdown-menu a').forEach((link) => {
-      link.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown').forEach((item) => {
+    document.querySelectorAll('.dropdown-menu').forEach((menu) => {
+      menu.addEventListener('click', (event) => {
+        const link = event.target.closest('a');
+        if (!link) return;
+
+        dropdowns.forEach((item) => {
           item.classList.remove('open');
         });
       });
     });
-      }
+
+    document.addEventListener('click', () => {
+      dropdowns.forEach((item) => {
+        item.classList.remove('open');
+      });
     });
   </script>
   <script>
